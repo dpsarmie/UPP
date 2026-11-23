@@ -127,6 +127,11 @@ if [[ $MACHINE_ID != "unknown" ]]; then
        gdb -ex 'call (int) unbind_variable("PELOCAL_PRGENV")' \
            -ex 'call (int) unbind_variable("RCLOCAL_PRGENV")' \
            --pid=$$ --batch
+   elif [ $MACHINE_ID == "nimbus" ]; then
+      if (! eval module help > /dev/null 2>&1); then
+        source /usr/share/lmod/lmod/init/bash
+      fi
+      module --force purge
    else
       module purge
    fi
